@@ -5,8 +5,17 @@ html, body {
     width: 100%;
 }
 
-header {
+header, form {
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
+.form-wrapper {
+    margin: auto;
+    margin-top: 5em;
+    height: 3em;
+    width: 25%;
+    background-color: peru;
+}
+
