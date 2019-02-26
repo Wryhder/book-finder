@@ -109,3 +109,14 @@ header, form {
 }
 
 /* End Styling for loading cube animation */
+
+#results {
+    display: flex
+}
+
+.book-cover {
+    height: 100px;
+    width: 80px;
+    background-color: blueviolet
+}
+
