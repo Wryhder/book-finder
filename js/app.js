@@ -106,4 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
             this.append(article, viewBookDetailsLink);
         }
     }
+
+    // Prompt user to search for a book
+    chores.promptSearch();
 }); 
