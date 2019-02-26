@@ -6,4 +6,10 @@ document.addEventListener("DOMContentLoaded", function () {
         statusDiv = document.querySelector('#status > div');
 
     let userInput, url;
+
+    const statusMessages = {
+        noSearchAttempted: 'Nothing here yet - try searching for a book',
+        invalidQuery: 'Error: Please provide a search query first',
+        noMatchFound: 'Nothing found! Try another query',
+    }
 }); 
