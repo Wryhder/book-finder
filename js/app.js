@@ -109,4 +109,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Prompt user to search for a book
     chores.promptSearch();
+
+    /* Listen for submit event on search form and display search results */
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        // Show loading animation
+        chores.toggleVisibility(statusDiv);
+
+        chores.buildFetchURL();
+        chores.clearPage();
+
+        // Make call to Google Books API and return HTML elements populated with relevant book details
+        fetch(url)
+            .then((response) => response.json())
+            .then((data) => {
+                // Hide loading animation
+                chores.toggleVisibility(statusDiv)
+
+                return (data.items.map(function (item) {
+                    return chores.renderBook(item);
+                }));
+            });
+    });
 }); 
