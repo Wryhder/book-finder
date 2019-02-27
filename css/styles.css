@@ -21,7 +21,7 @@ header, form {
     width: 25%;
 }
 
-/* Styling for loading cube animation */
+/* Styling for loading cube animation, from http://tobiasahlin.com/spinkit/ */
 
 .sk-folding-cube {
   margin: 20px auto;
