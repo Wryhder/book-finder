@@ -123,3 +123,6 @@ header, form, #status, #search-results {
     background-color: blueviolet
 }
 
+#status {
+  margin-top: 1.5em;
+}
