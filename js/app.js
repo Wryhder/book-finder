@@ -5,7 +5,13 @@ document.addEventListener("DOMContentLoaded", function () {
         searchInput = document.querySelector('.search-input'),
         statusDiv = document.querySelector('#status > div');
 
-    let userInput, url;
+    let userInput, url, state, totalSearchResults;
+
+    const states = {
+        noSearchAttempted: 'no-search-attempted',
+        fetchingResults: 'fetching-results',
+        resultsRendered: 'results-rendered',
+    }
 
     const statusMessages = {
         noSearchAttempted: 'Nothing here yet - try searching for a book',
@@ -24,8 +30,22 @@ document.addEventListener("DOMContentLoaded", function () {
         toggleVisibility(target) {
             target.classList.toggle('hidden');
         },
-        promptSearch() {
-            statusDiv.innerHTML = statusMessages.noSearchAttempted;
+        updateState(newState) {
+            statusDiv.className = newState;
+            state = newState;
+
+            switch (state) {
+                case states.noSearchAttempted:
+                    statusDiv.innerHTML = statusMessages.noSearchAttempted;
+                    break;
+                case states.fetchingResults:
+                    chores.createLoadingAnimation();
+                    break;
+                case states.resultsRendered:
+                    statusDiv.classList.replace('sk-folding-cube', 'results-rendered');
+                    statusDiv.innerHTML = `${totalSearchResults} search results for '${userInput}'`;
+                    break;
+            }
         },
         getSearchQuery() {
             (function getSearchString() {
@@ -41,13 +61,32 @@ document.addEventListener("DOMContentLoaded", function () {
         buildFetchURL() {
             url = 'https://www.googleapis.com/books/v1/volumes?q=' + this.getSearchQuery() + '&maxResults=20&key=AIzaSyAd2TY0Wyum01edRAeyuoQbV3DxdBfZXRU';
         },
+        searchAndRender() {
+            // Make call to Google Books API and return HTML elements populated with relevant book details
+            fetch(url)
+                .then((response) => response.json())
+                .then((data) => {
+                    
+                    totalSearchResults = data.totalItems;
+
+                    chores.updateState('results-rendered');
+
+                    // Render each returned book item
+                    return (data.items.map(function (item) {
+                        return chores.renderBook(item);
+                    }));
+                });
+        },
         clearPage() {
             // Empty the page of any previous search results
             booksContainer.innerHTML = '';
         },
         createLoadingAnimation() {
-            statusDiv.classList.replace('no-search-attempted', 'loading');
-            statusDiv.classList.add('sk-folding-cube', 'hidden');
+            // Empty div contents
+            statusDiv.innerHTML = '';
+
+            statusDiv.classList.replace('no-search-attempted', 'fetching-results');
+            statusDiv.classList.add('sk-folding-cube');
 
             const div1 = this.createNode('div'),
                 div2 = this.createNode('div'),
@@ -107,29 +146,17 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Prompt user to search for a book
-    chores.promptSearch();
+    chores.updateState('no-search-attempted');
 
     /* Listen for submit event on search form and display search results */
     form.addEventListener('submit', (event) => {
         event.preventDefault();
 
         // Show loading animation
-        chores.toggleVisibility(statusDiv);
+        chores.updateState('fetching-results');
 
         chores.buildFetchURL();
         chores.clearPage();
-
-        // Make call to Google Books API and return HTML elements populated with relevant book details
-        fetch(url)
-            .then((response) => response.json())
-            .then((data) => {
-                // Hide loading animation
-                chores.toggleVisibility(statusDiv)
-
-                return (data.items.map(function (item) {
-                    return chores.renderBook(item);
-                }));
-            });
+        chores.searchAndRender();
     });
-}); 
+});
