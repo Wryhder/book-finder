@@ -42,6 +42,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 case states.invalidQuery:
                     statusDiv.innerHTML = statusMessages.invalidQuery;
                     break;
+                case states.noMatchFound:
+                    statusDiv.innerHTML = statusMessages.noMatchFound;
+                    break;
                 case states.fetchingResults:
                     this.clearPage();
                     this.createLoadingAnimation();
@@ -72,6 +75,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 .then(response => response.json())
                 .then(data => {
 
+                    if (!data.items) {
+                        chores.updateState('no-match-found');
+                    } else {
                     // Get total number of results; this will be displayed for the user
                     totalSearchResults = data.totalItems;
 
@@ -81,6 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     return (data.items.map(function (item) {
                         return chores.renderBook(item);
                     }));
+                    }
                 });
         },
         clearPage() {
