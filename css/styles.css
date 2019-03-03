@@ -22,6 +22,32 @@ main {
   margin: 0 auto;
 }
 
+#search-results {
+  flex-wrap: wrap;
+  margin: 1.5em auto;
+}
+
+#search-results > * {
+  width: 28%;
+  height: 210px;
+  padding: 1em;
+  border: 2px solid gray;
+  margin: 0.5em;
+}
+
+#search-results, #search-results > * {
+  justify-content: center;
+}
+
+#search-results > * > div {
+  margin-left: 10px;
+  margin-top: -18px;
+}
+
+#search-results > * h5 {
+  font-size: 0.85em;
+}
+
 .form-wrapper {
     margin: auto;
     margin-top: 5em;
