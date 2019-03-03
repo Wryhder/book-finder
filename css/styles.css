@@ -154,3 +154,15 @@ main {
 #status {
   margin-top: 1.5em;
 }
+
+@media screen and (max-width: 1300px) {
+  #search-results > * {
+    min-width: 350px;
+  }
+}
+
+@media screen and (max-width: 924px) {
+  #search-results > * {
+    margin: 0.5em;
+  }
+}
