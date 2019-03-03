@@ -60,12 +60,13 @@ document.addEventListener("DOMContentLoaded", function () {
         buildFetchURL() {
             url = 'https://www.googleapis.com/books/v1/volumes?q=' + this.getSearchQuery() + '&maxResults=20&key=AIzaSyAd2TY0Wyum01edRAeyuoQbV3DxdBfZXRU';
         },
-        searchAndRender() {
-            // Make call to Google Books API and return HTML elements populated with relevant book details
+        loadResults() {
+            // Make call to Google Books API and render returned data
             fetch(url)
-                .then((response) => response.json())
-                .then((data) => {
+                .then(response => response.json())
+                .then(data => {
                     
+                    // Get total number of results; this will be displayed for the user
                     totalSearchResults = data.totalItems;
 
                     chores.updateState('results-rendered');
