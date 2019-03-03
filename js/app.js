@@ -78,15 +78,15 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (!data.items) {
                         chores.updateState('no-match-found');
                     } else {
-                    // Get total number of results; this will be displayed for the user
-                    totalSearchResults = data.totalItems;
+                        // Get total number of results; this will be displayed for the user
+                        totalSearchResults = data.totalItems;
 
-                    chores.updateState('results-rendered');
+                        chores.updateState('results-rendered');
 
-                    // Render each returned book item
-                    return (data.items.map(function (item) {
-                        return chores.renderBook(item);
-                    }));
+                        // Render each returned book item
+                        return (data.items.map(function (item) {
+                            return chores.renderBook(item);
+                        }));
                     }
                 });
         },
@@ -136,9 +136,9 @@ document.addEventListener("DOMContentLoaded", function () {
             // Book title
             bookTitle.innerHTML = title ? title : 'N/A';
             // Author(s)
-            bookAuthor.innerHTML = authors ? `By: ${authors}` : 'N/A';
+            bookAuthor.innerHTML = authors ? `By: ${authors}` : 'By: N/A';
             // Publisher
-            bookPublisher.innerHTML = publisher ? `Publisher: ${publisher}` : 'N/A';
+            bookPublisher.innerHTML = publisher ? `Publisher: ${publisher}` : 'By: N/A';
             // Link to book details; links out to external website
             viewBookDetailsLink.innerHTML = 'View Book Details';
             viewBookDetailsLink.href = previewLink;
