@@ -105,46 +105,46 @@ document.addEventListener("DOMContentLoaded", function () {
             this.append(statusDiv, div3);
         },
         renderBook(item) {
+            
+            const { imageLinks, title, authors, publisher, previewLink } = item.volumeInfo;
+
             // Create HTML elements
             const article = this.createNode('article'),
                 img = this.createNode('img'),
                 detailsContainer = this.createNode('div'),
-                title = this.createNode('h5'),
-                author = this.createNode('p'),
-                publisher = this.createNode('p'),
+                bookTitle = this.createNode('h5'),
+                bookAuthor = this.createNode('p'),
+                bookPublisher = this.createNode('p'),
                 viewBookDetailsLink = this.createNode('a');
 
             /* Populate elements with book details */
             // Book cover
-            img.src = item.volumeInfo.imageLinks.smallThumbnail;
+            const placeholderImage = 'https://via.placeholder.com/150x130.png?text=Cover+not+available';
+            img.src = imageLinks.smallThumbnail ? imageLinks.smallThumbnail : placeholderImage;
             // Book title
-            title.innerHTML = item.volumeInfo.title;
+            bookTitle.innerHTML = title ? title : 'N/A';
             // Author(s)
-            author.innerHTML = `By: ${item.volumeInfo.authors}`;
+            bookAuthor.innerHTML = authors ? `By: ${authors}` : 'N/A';
             // Publisher
-            if (typeof item.volumeInfo.publisher === 'undefined') {
-                publisher.innerHTML = `Publisher: Unknown`;
-            } else {
-                publisher.innerHTML = `Publisher: ${item.volumeInfo.publisher}`;
-            }
+            bookPublisher.innerHTML = publisher ? `Publisher: ${publisher}` : 'N/A';
             // Link to book details; links out to external website
             viewBookDetailsLink.innerHTML = 'View Book Details';
-            viewBookDetailsLink.href = item.volumeInfo.previewLink;
+            viewBookDetailsLink.href = previewLink;
 
             // Add styling
             article.classList.add('book');
             img.classList.add('book-cover');
-            title.classList.add('book-title');
-            author.classList.add('book-author');
-            publisher.classList.add('book-publisher');
+            bookTitle.classList.add('book-title');
+            bookAuthor.classList.add('book-author');
+            bookPublisher.classList.add('book-publisher');
 
             // Append created elements to a parent container
             this.append(booksContainer, article);
             this.append(article, img);
             this.append(article, detailsContainer);
-            this.append(detailsContainer, title);
-            this.append(detailsContainer, author);
-            this.append(detailsContainer, publisher);
+            this.append(detailsContainer, bookTitle);
+            this.append(detailsContainer, bookAuthor);
+            this.append(detailsContainer, bookPublisher);
             this.append(detailsContainer, viewBookDetailsLink);
         }
     }
