@@ -17,6 +17,11 @@ header, form, #status {
     align-items: center;
 }
 
+main {
+  width: 90%;
+  margin: 0 auto;
+}
+
 .form-wrapper {
     margin: auto;
     margin-top: 5em;
