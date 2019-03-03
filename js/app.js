@@ -38,7 +38,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     statusDiv.innerHTML = statusMessages.noSearchAttempted;
                     break;
                 case states.fetchingResults:
-                    chores.createLoadingAnimation();
+                    this.clearPage();
+                    this.createLoadingAnimation();
                     break;
                 case states.resultsRendered:
                     statusDiv.classList.replace('sk-folding-cube', 'results-rendered');
@@ -65,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
-                    
+
                     // Get total number of results; this will be displayed for the user
                     totalSearchResults = data.totalItems;
 
@@ -154,11 +155,9 @@ document.addEventListener("DOMContentLoaded", function () {
     form.addEventListener('submit', (event) => {
         event.preventDefault();
 
-        // Show loading animation
         chores.updateState('fetching-results');
-
         chores.buildFetchURL();
-        chores.clearPage();
-        chores.searchAndRender();
+        chores.loadResults();
     });
 });
+
