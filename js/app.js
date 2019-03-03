@@ -19,7 +19,6 @@ document.addEventListener("DOMContentLoaded", function () {
         noMatchFound: 'Nothing found! Try another query',
     }
 
-    /* Utility functions */
     const chores = {
         createNode(element) {
             return document.createElement(element);
