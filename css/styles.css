@@ -1,20 +1,20 @@
 html, body {
-    margin: 0;
-    height: 100%;
-    width: 100%;
+  margin: 0;
+  height: 100%;
+  width: 100%;
 }
 
 .hidden {
-    display: none;
+  display: none;
 }
 
 header, form, #status, #search-results, #search-results > * {
-    display: flex;
+  display: flex;
 }
 
 header, form, #status {
-    justify-content: center;
-    align-items: center;
+  justify-content: center;
+  align-items: center;
 }
 
 main {
@@ -49,10 +49,10 @@ main {
 }
 
 .form-wrapper {
-    margin: auto;
-    margin-top: 5em;
-    height: 3em;
-    width: 25%;
+  margin: auto;
+  margin-top: 5em;
+  height: 3em;
+  width: 25%;
 }
 
 /* Styling for loading cube animation, from http://tobiasahlin.com/spinkit/ */
@@ -148,7 +148,7 @@ main {
 /* End Styling for loading cube animation */
 
 .book-cover {
-    background-color: blueviolet
+  background-color: blueviolet
 }
 
 #status {
