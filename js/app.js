@@ -9,6 +9,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const states = {
         noSearchAttempted: 'no-search-attempted',
+        invalidQuery: 'invalid-query',
+        noMatchFound: 'no-match-found',
         fetchingResults: 'fetching-results',
         resultsRendered: 'results-rendered',
     }
@@ -36,6 +38,9 @@ document.addEventListener("DOMContentLoaded", function () {
             switch (state) {
                 case states.noSearchAttempted:
                     statusDiv.innerHTML = statusMessages.noSearchAttempted;
+                    break;
+                case states.invalidQuery:
+                    statusDiv.innerHTML = statusMessages.invalidQuery;
                     break;
                 case states.fetchingResults:
                     this.clearPage();
@@ -155,9 +160,15 @@ document.addEventListener("DOMContentLoaded", function () {
     form.addEventListener('submit', (event) => {
         event.preventDefault();
 
-        chores.updateState('fetching-results');
-        chores.buildFetchURL();
-        chores.loadResults();
+        (function validateSearchQuery() {
+            if (!chores.getSearchQuery()) {
+                chores.updateState('invalid-query');;
+            } else {
+                chores.updateState('fetching-results');
+                chores.buildFetchURL();
+                chores.loadResults();
+            }
+        })();
     });
 });
 
