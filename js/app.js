@@ -106,23 +106,24 @@ document.addEventListener("DOMContentLoaded", function () {
             // Create HTML elements
             const article = this.createNode('article'),
                 img = this.createNode('img'),
-                titleDiv = this.createNode('div'),
-                authorDiv = this.createNode('div'),
-                publisherDiv = this.createNode('div'),
+                detailsContainer = this.createNode('div'),
+                title = this.createNode('h5'),
+                author = this.createNode('p'),
+                publisher = this.createNode('p'),
                 viewBookDetailsLink = this.createNode('a');
 
             /* Populate elements with book details */
             // Book cover
-            img.src = item.volumeInfo.imageLinks.thumbnail;
+            img.src = item.volumeInfo.imageLinks.smallThumbnail;
             // Book title
-            titleDiv.innerHTML = item.volumeInfo.title;
+            title.innerHTML = item.volumeInfo.title;
             // Author(s)
-            authorDiv.innerHTML = `By: ${item.volumeInfo.authors}`;
+            author.innerHTML = `By: ${item.volumeInfo.authors}`;
             // Publisher
             if (typeof item.volumeInfo.publisher === 'undefined') {
-                publisherDiv.innerHTML = `Publisher: Unknown`;
+                publisher.innerHTML = `Publisher: Unknown`;
             } else {
-                publisherDiv.innerHTML = `Publisher: ${item.volumeInfo.publisher}`;
+                publisher.innerHTML = `Publisher: ${item.volumeInfo.publisher}`;
             }
             // Link to book details; links out to external website
             viewBookDetailsLink.innerHTML = 'View Book Details';
@@ -131,17 +132,18 @@ document.addEventListener("DOMContentLoaded", function () {
             // Add styling
             article.classList.add('book');
             img.classList.add('book-cover');
-            titleDiv.classList.add('book-title');
-            authorDiv.classList.add('book-author');
-            publisherDiv.classList.add('book-publisher');
+            title.classList.add('book-title');
+            author.classList.add('book-author');
+            publisher.classList.add('book-publisher');
 
             // Append created elements to a parent container
             this.append(booksContainer, article);
             this.append(article, img);
-            this.append(article, titleDiv);
-            this.append(article, authorDiv);
-            this.append(article, publisherDiv);
-            this.append(article, viewBookDetailsLink);
+            this.append(article, detailsContainer);
+            this.append(detailsContainer, title);
+            this.append(detailsContainer, author);
+            this.append(detailsContainer, publisher);
+            this.append(detailsContainer, viewBookDetailsLink);
         }
     }
 
