@@ -132,7 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
             /* Populate elements with book details */
             // Book cover
             const placeholderImage = 'https://via.placeholder.com/150x130.png?text=Cover+not+available';
-            img.src = imageLinks.smallThumbnail ? imageLinks.smallThumbnail : placeholderImage;
+            img.src = imageLinks ? imageLinks.smallThumbnail : placeholderImage;
             // Book title
             bookTitle.innerHTML = title ? title : 'N/A';
             // Author(s)
